@@ -6,27 +6,35 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
+@PropertySource("classpath:user.properties")
 public class User {
-	@Value(value = "john")
+	//@Value(value = "john")
+	@Value("${user.name1}")
 	private String name;
 
-	@Value(value = "18")
+	//@Value(value = "18")
+	@Value("${user.age}")
 	private Integer age;
 
 	// Spring EL語法
-	@Value("#{${nikename : {'Happy' ,'Enjoy'}}}")
+	//@Value("#{${nikename : {'Happy' ,'Enjoy'}}}")
+	@Value("${user.nikename}")
 	private String[] nikename;// 暱稱
 
-	@Value("#{${subjects : {'國文' ,'數學' ,'英文' ,'國文'}}}")
+	//@Value("#{${subjects : {'國文' ,'數學' ,'英文' ,'國文'}}}")
+	@Value("#{'${user.subjects}'.split(',')}")
 	private Set<String> subjects;// 科目
 
-	@Value("#{${scores : {'100' ,'90' ,'100' }}}")
+	//@Value("#{${scores : {'100' ,'90' ,'100' }}}")
+	@Value("#{'${user.scores}'.split(',')}")
 	private List<Integer> scores;
 
-	@Value("#{${hobbies : {key1:'car' ,key2:'Airplane' }}}")
+	//@Value("#{${hobbies : {key1:'car' ,key2:'Airplane' }}}")
+	@Value("#{${user.hobbies}}")
 	private Map<String, String> hobbies;
 
 	public String getName() {
